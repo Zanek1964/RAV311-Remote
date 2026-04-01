@@ -6,6 +6,13 @@ All codes use the Pioneer protocol with repeat=2, exactly matching
 the ESPHome remote_transmitter.transmit_pioneer configuration.
 """
 
+from homeassistant.components.infrared import RAWInfraredCommand
+from .pioneer import encode_frame, Timing
+
+def make_command(code: YamahaCode):
+    timings = encode_frame(int(code))
+    return RAWInfraredCommand(timings=timings, repeat_count=1)
+
 from __future__ import annotations
 
 from enum import IntEnum
