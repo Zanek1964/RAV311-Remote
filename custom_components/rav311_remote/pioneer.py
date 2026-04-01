@@ -36,7 +36,7 @@ def _encode_frame(rc_code: int) -> list[Timing]:
     timings.extend(_encode_byte(high_byte))
     timings.extend(_encode_byte(~high_byte & 0xFF))
     timings.append(Timing(high_us=_TRAILING_MARK, low_us=0))
-    return timings timings
+    return timings
 
 
 @dataclass
