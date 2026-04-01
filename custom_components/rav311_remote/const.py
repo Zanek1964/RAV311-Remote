@@ -7,11 +7,10 @@ the ESPHome remote_transmitter.transmit_pioneer configuration.
 """
 
 from homeassistant.components.infrared import RAWInfraredCommand
-from .pioneer import encode_frame, Timing
+from .pioneer import make_pioneer_command
 
-def make_command(code: YamahaCode):
-    timings = encode_frame(int(code))
-    return RAWInfraredCommand(timings=timings, repeat_count=1)
+def make_command(code: YamahaCode) -> RAWInfraredCommand:
+    return make_pioneer_command(rc_code=int(code), repeat=2)
 
 from __future__ import annotations
 
