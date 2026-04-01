@@ -31,13 +31,12 @@ def _encode_frame(rc_code: int) -> list[Timing]:
     high_byte = (rc_code >> 8) & 0xFF
     low_byte = rc_code & 0xFF
     timings = [Timing(high_us=_HEADER_MARK, low_us=_HEADER_SPACE)]
-    timings.extend(_encode_byte(low_byte))
-    timings.extend(_encode_byte(~low_byte & 0xFF))
     timings.extend(_encode_byte(high_byte))
     timings.extend(_encode_byte(~high_byte & 0xFF))
+    timings.extend(_encode_byte(low_byte))
+    timings.extend(_encode_byte(~low_byte & 0xFF))
     timings.append(Timing(high_us=_TRAILING_MARK, low_us=0))
     return timings
-
 
 @dataclass
 class PioneerCommand:
