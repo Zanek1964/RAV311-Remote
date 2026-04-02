@@ -12,6 +12,14 @@ _TRAILER_HIGH = 560
 _TRAILER_LOW = 25500
 
 
+def _reverse_bits(b: int) -> int:
+    result = 0
+    for i in range(8):
+        if b & (1 << i):
+            result |= (1 << (7 - i))
+    return result
+
+
 def _encode_uint16_lsb(value: int) -> list[Timing]:
     result = []
     for _ in range(16):
@@ -24,7 +32,7 @@ def _encode_uint16_lsb(value: int) -> list[Timing]:
 
 
 class PioneerCommand(Command):
-    """Pioneer IR command."""
+    """Pioneer IR command matching ESPHome pioneer_protocol.cpp exactly."""
 
     def __init__(self, rc_code: int, repeat: int = 2) -> None:
         super().__init__(modulation=PIONEER_FREQUENCY_HZ, repeat_count=0)
@@ -32,12 +40,12 @@ class PioneerCommand(Command):
         self._repeat = repeat
 
     def get_raw_timings(self) -> list[Timing]:
-        address = (self.rc_code & 0xFF00) | ((~(self.rc_code >> 8)) & 0xFF)
-        cmd_high = 0
-        for bit in range(4):
-            if (self.rc_code >> bit) & 1:
-                cmd_high |= (1 << (7 - bit))
-        command = (cmd_high << 8) | ((~cmd_high) & 0xFF)
+        high_byte = (self.rc_code >> 8) & 0xFF
+        low_byte = self.rc_code & 0xFF
+        rev_high = _reverse_bits(high_byte)
+
+        address = ((~rev_high & 0xFF) << 8) | rev_high
+        command = ((~low_byte & 0xFF) << 8) | low_byte
 
         frame: list[Timing] = [Timing(high_us=_HEADER_HIGH, low_us=_HEADER_LOW)]
         frame.extend(_encode_uint16_lsb(address))
