@@ -1,4 +1,10 @@
+<p align="center">
+  <img src="assets/banner.gif" alt="RAV311 Remote – Home Assistant Infrared" />
+</p>
+
 # RAV311 Remote — Home Assistant Custom Integration
+
+[![HACS Default](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration) [![HACS Validation](https://github.com/alray31/RAV311-Remote/actions/workflows/hacs.yml/badge.svg)](https://github.com/alray31/RAV311-Remote/actions/workflows/hacs.yml) [![Hassfest](https://github.com/alray31/RAV311-Remote/actions/workflows/hassfest.yml/badge.svg)](https://github.com/alray31/RAV311-Remote/actions/workflows/hassfest.yml) [![GitHub Release](https://img.shields.io/github/v/release/alray31/RAV311-Remote?style=flat&color=orange)](https://github.com/alray31/RAV311-Remote/releases) [![GitHub Release Date](https://img.shields.io/github/release-date/alray31/RAV311-Remote)](https://github.com/alray31/RAV311-Remote/releases) [![GitHub Stars](https://img.shields.io/github/stars/alray31/RAV311-Remote?style=flat)](https://github.com/alray31/RAV311-Remote/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/alray31/RAV311-Remote?style=flat)](https://github.com/alray31/RAV311-Remote/network/members) [![GitHub Issues](https://img.shields.io/github/issues/alray31/RAV311-Remote)](https://github.com/alray31/RAV311-Remote/issues) [![Last Commit](https://img.shields.io/github/last-commit/alray31/RAV311-Remote)](https://github.com/alray31/RAV311-Remote/commits) [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026.4%2B-41BDF5?logo=homeassistant)](https://www.home-assistant.io/) [![License](https://img.shields.io/github/license/alray31/RAV311-Remote)](LICENSE)
 
 Control your Yamaha AV receiver from Home Assistant via infrared, using the native [`infrared`](https://www.home-assistant.io/integrations/infrared/) building block introduced in HA 2026.4.
 
@@ -7,8 +13,8 @@ Control your Yamaha AV receiver from Home Assistant via infrared, using the nati
 - Yamaha RX-V361BL
 - Yamaha HTR-6025
 - Yamaha HTR-6030
+- Maybe more, you tell me!
 
-<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/e309d791-43ad-4a20-9c49-df5f9dc5df1f" />
 
 ## Requirements
 
@@ -66,6 +72,8 @@ All codes were sourced from a working ESPHome configuration and verified against
 ## Minimum ESPHome config
 
 Here is an example of the required esphome config. Change variables to fit your needs (board type, wifi credentials, GPIO, etc)
+1. You need to add the [ir transmitter](https://esphome.io/components/remote_transmitter/) component, set the correct GPIO corresponding to the IR LED and give your ir tranmisster an ID.
+2. Then add the [ir proxy](https://esphome.io/components/ir_rf_proxy/) transmitter compoenent, set the "remote_transmitter_id:" value so it matches the ID previously give the the ir_transmitter.
 
 ```
 esphome:
@@ -107,8 +115,11 @@ infrared:
 
 ## The original remote this integration replaces. 
 
-If your remote is like the one in the picture, this integration will work with your AV device.
+If your remote or AV receiver looks like this, this integration will control your AV device.
+
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/e309d791-43ad-4a20-9c49-df5f9dc5df1f" />
 
 <img width="353" height="1500" alt="image" src="https://github.com/user-attachments/assets/970544dd-b312-4fa4-8dad-ea983c7817cc" />
+
 
 
