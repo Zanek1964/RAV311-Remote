@@ -1,6 +1,6 @@
 from __future__ import annotations
-from homeassistant.components.infrared import RAWInfraredCommand
-from homeassistant.components.infrared import Timing
+from dataclasses import dataclass, field
+from infrared_protocols import Command, Timing
 
 PIONEER_FREQUENCY_HZ = 40_000
 _HEADER_HIGH = 9000
@@ -23,17 +23,28 @@ def _encode_uint16_lsb(value: int) -> list[Timing]:
     return result
 
 
-def make_pioneer_command(rc_code: int, repeat: int = 2) -> RAWInfraredCommand:
-    address = (rc_code & 0xFF00) | ((~(rc_code >> 8)) & 0xFF)
-    cmd_high = 0
-    for bit in range(4):
-        if (rc_code >> bit) & 1:
-            cmd_high |= (1 << (7 - bit))
-    command = (cmd_high << 8) | ((~cmd_high) & 0xFF)
+@dataclass
+class PioneerCommand(Command):
+    """Pioneer IR command compatible with infrared_protocols.Command."""
 
-    frame: list[Timing] = [Timing(high_us=_HEADER_HIGH, low_us=_HEADER_LOW)]
-    frame.extend(_encode_uint16_lsb(address))
-    frame.extend(_encode_uint16_lsb(command))
-    frame.append(Timing(high_us=_TRAILER_HIGH, low_us=_TRAILER_LOW))
+    rc_code: int
+    repeat: int = 2
+    modulation: int = field(default=PIONEER_FREQUENCY_HZ, init=False)
 
-    return RAWInfraredCommand(timings=frame, repeat_count=repeat - 1)
+    def get_raw_timings(self) -> list[Timing]:
+        address = (self.rc_code & 0xFF00) | ((~(self.rc_code >> 8)) & 0xFF)
+        cmd_high = 0
+        for bit in range(4):
+            if (self.rc_code >> bit) & 1:
+                cmd_high |= (1 << (7 - bit))
+        command = (cmd_high << 8) | ((~cmd_high) & 0xFF)
+
+        frame: list[Timing] = [Timing(high_us=_HEADER_HIGH, low_us=_HEADER_LOW)]
+        frame.extend(_encode_uint16_lsb(address))
+        frame.extend(_encode_uint16_lsb(command))
+        frame.append(Timing(high_us=_TRAILER_HIGH, low_us=_TRAILER_LOW))
+
+        timings = list(frame)
+        for _ in range(self.repeat - 1):
+            timings.extend(frame)
+        return timings
