@@ -63,7 +63,7 @@ All codes were sourced from a working ESPHome configuration and verified against
 
 ## Minimum ESPHome config
 
-Here is an example of the required esphome config. Change variable to fit your needs (board type, wifi credentials, GPIO, etc)
+Here is an example of the required esphome config. Change variables to fit your needs (board type, wifi credentials, GPIO, etc)
 
 ```
 esphome:
@@ -103,7 +103,9 @@ infrared:
     remote_transmitter_id: my_ir_transmiter
 ```
 
-## The original remote this integration replaces. If your remote is like the one in the picture, this integration will work with your AV device.
+## The original remote this integration replaces. 
+
+If your remote is like the one in the picture, this integration will work with your AV device.
 
 <img width="353" height="1500" alt="image" src="https://github.com/user-attachments/assets/970544dd-b312-4fa4-8dad-ea983c7817cc" />
 
