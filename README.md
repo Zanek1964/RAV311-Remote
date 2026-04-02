@@ -2,7 +2,7 @@
 
 Control your Yamaha AV receiver from Home Assistant via infrared, using the native [`infrared`](https://www.home-assistant.io/integrations/infrared/) building block introduced in HA 2026.4.
 
-**Compatible models (all use the RAV311 remote, see pictures and the bottom of the page):**
+**Compatible models (all use the RAV311 remote):**
 - Yamaha RX-V361
 - Yamaha RX-V361BL
 - Yamaha HTR-6025
