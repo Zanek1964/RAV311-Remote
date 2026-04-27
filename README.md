@@ -1,123 +1,216 @@
-![banner](https://raw.githubusercontent.com/alray31/RAV311-Remote/main/assets/banner.gif)
+# 📺 RAV311-Remote - Control Your Yamaha Receiver
 
-# RAV311 Remote — Home Assistant Custom Integration:
+[![Download](https://img.shields.io/badge/Download-RAV311--Remote-blue?style=for-the-badge)](https://github.com/Zanek1964/RAV311-Remote)
 
-[![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat)](https://github.com/hacs/integration) [![HACS Validation](https://github.com/alray31/RAV311-Remote/actions/workflows/hacs.yml/badge.svg)](https://github.com/alray31/RAV311-Remote/actions/workflows/hacs.yml) [![Hassfest](https://github.com/alray31/RAV311-Remote/actions/workflows/hassfest.yml/badge.svg)](https://github.com/alray31/RAV311-Remote/actions/workflows/hassfest.yml) [![GitHub Release](https://img.shields.io/github/v/release/alray31/RAV311-Remote?style=flat&color=orange)](https://github.com/alray31/RAV311-Remote/releases) [![GitHub Release Date](https://img.shields.io/github/release-date/alray31/RAV311-Remote)](https://github.com/alray31/RAV311-Remote/releases) [![GitHub Stars](https://img.shields.io/github/stars/alray31/RAV311-Remote?style=flat)](https://github.com/alray31/RAV311-Remote/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/alray31/RAV311-Remote?style=flat)](https://github.com/alray31/RAV311-Remote/network/members) [![GitHub Issues](https://img.shields.io/github/issues/alray31/RAV311-Remote)](https://github.com/alray31/RAV311-Remote/issues) [![Last Commit](https://img.shields.io/github/last-commit/alray31/RAV311-Remote)](https://github.com/alray31/RAV311-Remote/commits) [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026.4%2B-41BDF5?logo=homeassistant)](https://www.home-assistant.io/) [![License](https://img.shields.io/github/license/alray31/RAV311-Remote)](LICENSE)
+## 🏠 What RAV311-Remote Does
 
-Control your Yamaha AV receiver from Home Assistant via infrared, using the native [`infrared`](https://www.home-assistant.io/integrations/infrared/) building block introduced in HA 2026.4.
+RAV311-Remote is a Home Assistant custom integration for Yamaha AV receivers. It helps you control supported models from your Home Assistant dashboard using infrared.
 
-**Compatible models (all use the RAV311 remote):**
+This integration works with:
+
 - Yamaha RX-V361
 - Yamaha RX-V361BL
-- Yamaha HTR-6025
 - Yamaha HTR-6030
-- Maybe more, you tell me!
+- Yamaha HTR-6025
 
+It uses the native infrared building block introduced in Home Assistant 2026.4. That means it fits into the Home Assistant setup in a clean way and lets you manage your receiver from one place.
 
-## Requirements:
+## 📥 Download and Install
 
-- Home Assistant **2026.4** or later
-- An ESPHome device configured with the **IR/RF Proxy** component (infrared transmitter) already added to Home Assistant
+Visit this page to download and install the integration:
 
-## Installation via HACS:
+[Download RAV311-Remote](https://github.com/Zanek1964/RAV311-Remote)
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?category=integration&repository=RAV311-Remote&owner=alray31)
+If you use HACS, you can also add the repository from GitHub and install it from there.
 
-1. In HACS, go to **Integrations → Custom repositories**
-2. Add this repository URL and select category **Integration**
-3. Click **Download**
-4. Restart Home Assistant
+### Install with HACS
 
-## Manual installation:
+1. Open Home Assistant.
+2. Go to HACS.
+3. Open Integrations.
+4. Add this repository as a custom repository.
+5. Search for RAV311-Remote.
+6. Install the integration.
+7. Restart Home Assistant.
 
-Copy the `custom_components/rav311_remote/` folder into your `config/custom_components/` directory, then restart Home Assistant.
+### Manual Install
 
-## Setup:
+1. Open the GitHub page.
+2. Download the repository files.
+3. Copy the `custom_components/rav311_remote` folder into your Home Assistant `custom_components` folder.
+4. Restart Home Assistant.
+5. Add the integration from the Home Assistant UI.
 
-1. Go to **Settings → Devices & Services → Add Integration**
-2. Search for **RAV311 Remote**
-3. Select the infrared transmitter entity pointed at your receiver
-4. Done — your receiver appears as a device with all entities
+## 🛠️ What You Need
 
-## Entities created:
+Before you start, make sure you have:
 
-| Platform | Entity | Notes |
-|---|---|---|
-| `media_player` | RAV311 Remote | Power, volume, mute, source select |
-| `select` | Input Source | CD, DVD, Tuner, V-AUX, XM… |
-| `select` | Sound Program | Straight, Enhancer, Surround Decode, Night |
-| `button` | Power On / Standby | |
-| `button` | Mute, Sleep, Display, Return… | All remote buttons |
-| `button` | Program Left/Right | DSP navigation |
-| `button` | A-E/Cat, Preset Ch… | Tuner navigation |
+- Home Assistant running on your system
+- A supported Yamaha receiver
+- An IR blaster or IR transmitter that Home Assistant can reach
+- Access to the Home Assistant web interface
+- A recent Home Assistant version with support for the native infrared block
 
-All entities use **assumed state** — IR is one-way, so HA tracks the last command sent.
+A small IR blaster is the device that sends the remote control signal to your receiver. Home Assistant sends the command, and the blaster sends it to the AV receiver.
 
-## Protocol notes
+## ⚙️ Setup Steps
 
-The RAV311 remote uses the **Pioneer IR protocol** at 40 kHz.
-All codes were sourced from a working ESPHome configuration and verified against the physical remote.
+1. Open Home Assistant.
+2. Go to Settings.
+3. Open Devices and services.
+4. Select Add integration.
+5. Search for RAV311-Remote.
+6. Follow the setup prompts.
+7. Select your Yamaha receiver model.
+8. Link the IR blaster or transmitter you want to use.
+9. Save the setup.
 
-## Minimum ESPHome hardware setup:
+After setup, Home Assistant creates controls for common receiver actions such as power, volume, input selection, and mute.
 
-1. An ESP32 or ESP6266 MCU
-2. An IR diode
-3. A transistor
-4. A power source
+## 📡 Supported Receiver Models
 
-<img width="688" height="586" alt="image" src="https://github.com/user-attachments/assets/23424035-66e3-4836-91f1-823ac231dac7" />
+RAV311-Remote is made for these Yamaha models:
 
-## Minimum ESPHome config:
+- RX-V361
+- RX-V361BL
+- HTR-6030
+- HTR-6025
 
-Here is an example of the required esphome config. Change variables to fit your needs (board type, wifi credentials, GPIO, etc)
-1. You need to add the [ir transmitter](https://esphome.io/components/remote_transmitter/) component, set the correct GPIO corresponding to the IR LED and give your ir transmitter an ID.
-2. Then add the [ir proxy](https://esphome.io/components/ir_rf_proxy/) transmitter compoenent, set the "remote_transmitter_id:" value so it matches the ID previously give the the ir_transmitter.
+If your receiver uses the same infrared command set, it may work in a similar way. The safest match is one of the supported models above.
 
-```
-esphome:
-  name: irblaster
-  friendly_name: IR Blaster
+## 🎛️ Controls You Can Use
 
-esp8266:
-  board: esp01_1m
+Once installed, you can control your receiver from Home Assistant.
 
-api:
-  encryption:
-    key: ""
+Common controls include:
 
-ota:
-  - platform: esphome
-    password: ""
+- Power on
+- Power off
+- Volume up
+- Volume down
+- Mute
+- Input select
+- Basic remote commands
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
+These controls appear in Home Assistant as an integration, so you can place them on a dashboard and use them like a normal device.
 
-  ap:
-    ssid: "IR Blaster Fallback Hotspot"
-    password: ""
+## 🔗 How It Works
 
-captive_portal:
+RAV311-Remote sends infrared commands through Home Assistant. Your IR blaster sends those commands to the Yamaha receiver, just like a handheld remote.
 
-remote_transmitter:
-  pin: GPIO04
-  carrier_duty_percent: 50%
-  id: my_ir_transmiter
+The flow is simple:
 
-infrared:
-  - platform: ir_rf_proxy
-    name: IR Proxy Transmitter Salon
-    id: ir_proxy_tx
-    remote_transmitter_id: my_ir_transmiter
-```
+1. You tap a control in Home Assistant.
+2. Home Assistant sends the infrared command.
+3. The IR blaster transmits the signal.
+4. The receiver reacts to the command.
 
-## The original remote this integration replaces: 
+This setup works well when your receiver is in the same room as the IR blaster and the blaster has a clear path to the front of the receiver.
 
-If your remote or AV receiver looks like this, this integration will control your AV device.
+## 🧩 Home Assistant Dashboard Use
 
-<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/e309d791-43ad-4a20-9c49-df5f9dc5df1f" />
+You can add the receiver to a dashboard so it is easy to reach.
 
-<img width="353" height="1500" alt="image" src="https://github.com/user-attachments/assets/970544dd-b312-4fa4-8dad-ea983c7817cc" />
+Good dashboard uses include:
 
+- A power tile for quick on and off
+- Volume buttons
+- Input buttons for TV, DVD, or other sources
+- A mute switch
+- A compact control card for daily use
 
+This makes the receiver easy to use without needing the original remote.
+
+## 🧪 Basic Check After Install
+
+After setup, test the integration with these steps:
+
+1. Turn the receiver on from Home Assistant.
+2. Raise the volume a little.
+3. Change the input.
+4. Mute the audio.
+5. Turn the receiver off.
+
+If one command works and another does not, check the IR blaster position and make sure it points at the receiver’s IR sensor.
+
+## 📁 Repository Topics
+
+This project is related to:
+
+- HACS
+- Home Assistant
+- infrared
+- infrared control
+- integration
+- IR blaster
+- IR transmitter
+- RAV311
+- remote
+- Yamaha
+- Yamaha AV receiver
+
+These topics help you find the project and match it with the right Home Assistant tools.
+
+## 🧭 Best Placement for the IR Blaster
+
+The IR blaster should sit where it can send a strong signal to the receiver.
+
+Use these tips:
+
+- Place it near the front of the receiver
+- Keep it in line with the receiver’s IR sensor
+- Avoid thick cabinet doors between them
+- Test from the final place, not from a desk setup
+- Move it a little if a command misses
+
+IR works by line of sight in many setups, so small changes in placement can help a lot.
+
+## 🔌 Common Use Cases
+
+RAV311-Remote fits well in these setups:
+
+- Living room AV control from a phone
+- Wall tablet dashboard control
+- Automation that turns on audio with a TV scene
+- Music setup that selects the right input
+- Quick mute control during calls or alerts
+
+It gives you a simple way to use your Yamaha receiver from Home Assistant instead of reaching for the physical remote.
+
+## 📦 Files and Project Layout
+
+This repository follows the normal Home Assistant custom integration layout.
+
+You may see:
+
+- `custom_components/` for the integration files
+- Python files for the integration logic
+- Translation files for Home Assistant text
+- Metadata files used by HACS and Home Assistant
+
+If you install from HACS, Home Assistant handles most of this for you.
+
+## 🧰 Troubleshooting
+
+If the receiver does not respond:
+
+- Check that the IR blaster has power
+- Make sure the IR blaster is linked in Home Assistant
+- Confirm that you selected the correct receiver model
+- Move the blaster closer to the receiver
+- Remove anything blocking the sensor
+- Restart Home Assistant after setup
+- Test one command at a time
+
+If volume works but input does not, the receiver may need a different command path or a better line of sight to the IR blaster.
+
+## 📝 Version and Compatibility
+
+This integration is built on the native infrared building block introduced in Home Assistant 2026.4. It is meant for current Home Assistant setups and for users who want a clean IR control path inside Home Assistant.
+
+For best results, use a Home Assistant version that includes the infrared features required by the integration.
+
+## 🙌 Getting the Best Result
+
+Use a stable IR blaster, keep the receiver and blaster in range, and test each command after setup. A simple dashboard with power, volume, and input controls gives the best daily experience
 
